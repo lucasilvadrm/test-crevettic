@@ -1,10 +1,11 @@
 import { Routes, Route, Navigate } from 'react-router-dom';
-import Layout from '../layout';
+import Container from '../components/Container';
 
 function AppRoutes() {
   return (
     <Routes>
-      <Route path="/" element={<Layout />} />
+      <Route path="/" element={<Container />} />
+      <Route path="/new" element={<h1>New</h1>} />
       <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );

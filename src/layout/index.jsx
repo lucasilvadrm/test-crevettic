@@ -1,16 +1,17 @@
 import React from 'react';
-import Container from '../components/Container';
+import { BrowserRouter } from 'react-router-dom';
 import Header from '../components/Header';
+import AppRoutes from '../routes';
 import { Main } from './styles';
 
 function Layout() {
   return (
-    <>
+    <BrowserRouter>
       <Header />
       <Main>
-        <Container />
+        <AppRoutes />
       </Main>
-    </>
+    </BrowserRouter>
   );
 }
 
