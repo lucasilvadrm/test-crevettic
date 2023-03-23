@@ -32,4 +32,8 @@ export const theme = createTheme({
       700: '#545454',
     },
   },
+  typography: {
+    fontSize: 12,
+    h1: 20,
+  },
 });
