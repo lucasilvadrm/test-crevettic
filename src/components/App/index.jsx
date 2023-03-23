@@ -1,14 +1,17 @@
-import { ThemeProvider } from 'styled-components';
-import theme from '../../assets/styles/themes/default';
+import { ThemeProvider as ThemeProviderSC } from 'styled-components';
+import { BrowserRouter } from 'react-router-dom';
+import themeSC from '../../assets/styles/themes/default';
 import GlobalStyles from '../../assets/styles/global';
-import Layout from '../../layout';
+import AppRoutes from '../../routes';
 
 function App() {
   return (
-    <ThemeProvider theme={theme}>
-      <GlobalStyles />
-      <Layout />
-    </ThemeProvider>
+    <BrowserRouter>
+      <ThemeProviderSC theme={themeSC}>
+        <GlobalStyles />
+        <AppRoutes />
+      </ThemeProviderSC>
+    </BrowserRouter>
   );
 }
 
