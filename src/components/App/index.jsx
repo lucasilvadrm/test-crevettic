@@ -1,6 +1,7 @@
 import { ThemeProvider as ThemeProviderSC } from 'styled-components';
 import { ThemeProvider } from '@mui/material';
-import themeSC, { theme } from '../../assets/styles/themes/default';
+import themeSC from '../../assets/styles/themes/default';
+import { theme } from '../../assets/styles/themes/customMui';
 import GlobalStyles from '../../assets/styles/global';
 import Layout from '../../layout';
 

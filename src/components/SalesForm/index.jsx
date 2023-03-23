@@ -1,5 +1,5 @@
 import {
-  FormControl, Grid, InputLabel, MenuItem, Select, TextField,
+  FormControl, Grid, InputLabel, MenuItem, Select, TextField, useMediaQuery,
 } from '@mui/material';
 import CustomDatePicker from '../CustomDatePicker';
 import FormGroup from '../FormGroup';
@@ -7,6 +7,8 @@ import ButtonGroup from './components/ButtonGroup';
 import Button from '../Button';
 
 function SalesForm() {
+  const smDown = useMediaQuery((theme) => theme.breakpoints.down('sm'));
+
   return (
     <FormGroup title="Dados de venda">
       <Grid container spacing={2}>
@@ -55,11 +57,15 @@ function SalesForm() {
           <TextField label="Preço de venda" type="text" fullWidth />
         </Grid>
       </Grid>
-      <ButtonGroup>
-        <Button onClick={() => {}}>
+      <ButtonGroup wrap={smDown}>
+        <Button
+          color="secondary"
+          onClick={() => {}}
+        >
           Voltar
         </Button>
         <Button
+          color="primary"
           type="submit"
           onClick={() => {}}
         >

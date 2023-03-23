@@ -12,6 +12,9 @@ export default function Button({
       size="large"
       type={type}
       onClick={onClick}
+      sx={{
+        borderRadius: '10px',
+      }}
     >
       {children}
 
