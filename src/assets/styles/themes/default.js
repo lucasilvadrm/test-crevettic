@@ -1,13 +1,12 @@
+import { createTheme } from '@mui/material';
+
 export default {
   colors: {
     header: '#E98F0A',
     border: '#EAEAEE',
-    button: {
-      back: '#545454',
-      save: '#0076C6',
-    },
-    gray: {
-      primary: '#999999',
+    background: {
+      paper: '#FFFFFF',
+      default: '#E5E5E5',
     },
   },
   borderRadius: {
@@ -18,3 +17,19 @@ export default {
     default: '12px',
   },
 };
+
+export const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#E98F0A',
+    },
+    secondary: {
+      main: '#0076C6',
+      contrastText: '#ffffff',
+    },
+    grey: {
+      500: '#999999',
+      700: '#545454',
+    },
+  },
+});

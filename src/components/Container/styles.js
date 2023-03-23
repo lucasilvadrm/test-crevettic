@@ -10,4 +10,5 @@ export const StyledContainer = styled.div`
   border-radius: ${({ theme }) => theme.borderRadius.component};
   border: 1px solid ${({ theme }) => theme.colors.border};
   box-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  background-color: ${({ theme }) => theme.colors.background.paper};
 `;

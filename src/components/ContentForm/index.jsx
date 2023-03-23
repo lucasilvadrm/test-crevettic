@@ -1,11 +1,17 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Typography } from '@mui/material';
 import { StyledContentForm } from './styles';
 
 function ContentForm({ children, title }) {
   return (
     <StyledContentForm>
-      <h1>{title}</h1>
+      <Typography
+        variant="h5"
+        marginBottom={5}
+      >
+        {title}
+      </Typography>
       {children}
     </StyledContentForm>
   );
