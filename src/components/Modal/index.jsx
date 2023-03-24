@@ -6,19 +6,18 @@ import Button from '../Button';
 import ButtonGroup from '../ButtonGroup';
 import { styledBox } from './styles';
 
-import FormGroup from '../FormGroup';
+import FormContainer from '../Form/FormContainer';
 
 export default function BasicModal({ openModal, onCloseModal }) {
+  console.log('Basic Modal renderizou');
   return (
     <div>
       <Modal
         open={openModal}
         onClose={onCloseModal}
-        aria-labelledby="modal-modal-title"
-        aria-describedby="modal-modal-description"
       >
         <Box sx={styledBox}>
-          <FormGroup title="Adicionar novo cliente">
+          <FormContainer title="Adicionar novo cliente">
             <Grid container spacing={2}>
               <Grid xs={12} item>
                 <TextField label="Nome" name="name" type="text" fullWidth />
@@ -65,7 +64,7 @@ export default function BasicModal({ openModal, onCloseModal }) {
                 </FormControl>
               </Grid>
             </Grid>
-          </FormGroup>
+          </FormContainer>
           <ButtonGroup justify="flex-end">
             <Button
               width={171}

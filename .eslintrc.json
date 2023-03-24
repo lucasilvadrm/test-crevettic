@@ -28,6 +28,7 @@
       "no-empty": ["error", { "allowEmptyCatch": true }],
       "react-hooks/rules-of-hooks": "error",
       "react-hooks/exhaustive-deps": "warn",
-      "max-len": "off"
+      "max-len": "off",
+      "react/jsx-props-no-spreading": "off"
     }
 }

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Typography } from '@mui/material';
 
-function FormGroup({ children, title }) {
+function FormContainer({ children, title }) {
   return (
     <>
       <Typography
@@ -18,9 +18,9 @@ function FormGroup({ children, title }) {
   );
 }
 
-FormGroup.propTypes = {
+FormContainer.propTypes = {
   children: PropTypes.node.isRequired,
   title: PropTypes.string.isRequired,
 };
 
-export default FormGroup;
+export default FormContainer;

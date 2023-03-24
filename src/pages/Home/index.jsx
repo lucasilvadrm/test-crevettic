@@ -1,12 +1,12 @@
 import { StyledPaper } from './styles';
-import SalesForm from '../../components/SalesForm';
+import Sales from '../../components/Sales';
 
 function Home() {
   return (
     <StyledPaper
       elevation={3}
     >
-      <SalesForm />
+      <Sales />
     </StyledPaper>
   );
 }
