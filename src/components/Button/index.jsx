@@ -2,7 +2,12 @@ import { Button as ButtonMui } from '@mui/material';
 import PropTypes from 'prop-types';
 
 export default function Button({
-  children, variant, color, type, onClick, width,
+  children,
+  variant,
+  color,
+  type,
+  onClick,
+  width,
 }) {
   const isManualWidth = width ? {
     maxWidth: width,
@@ -32,14 +37,15 @@ export default function Button({
 Button.propTypes = {
   children: PropTypes.node.isRequired,
   variant: PropTypes.string,
-  color: PropTypes.string.isRequired,
+  color: PropTypes.string,
   type: PropTypes.string,
   onClick: PropTypes.func.isRequired,
-  width: PropTypes.string,
+  width: PropTypes.number,
 };
 
 Button.defaultProps = {
   type: 'button',
   variant: 'contained',
-  width: null,
+  width: undefined,
+  color: 'primary',
 };

@@ -1,25 +1,40 @@
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import {
   FormControl, Grid, InputLabel, MenuItem, Select, TextField, useMediaQuery,
 } from '@mui/material';
+import { useState } from 'react';
 import CustomDatePicker from '../CustomDatePicker';
 import FormGroup from '../FormGroup';
 import ButtonGroup from '../ButtonGroup';
 import Button from '../Button';
 import BasicModal from '../Modal';
+import { Option } from './styles';
 
 function SalesForm() {
   const smDown = useMediaQuery((theme) => theme.breakpoints.down('sm'));
+  const [openModal, setOpenModal] = useState(false);
+
+  const handleOpenModal = () => {
+    setOpenModal(true);
+  };
+
+  const handleCloseModal = () => {
+    setOpenModal(false);
+  };
 
   return (
-    <FormGroup title="Dados de venda">
+    <FormGroup title="Dados de Venda">
+      <BasicModal
+        openModal={openModal}
+        onCloseModal={handleCloseModal}
+      />
       <Grid container spacing={2}>
         <Grid xs={12} item>
-          <FormControl fullWidth>
-            <TextField label="Descrição" type="text" fullWidth />
-          </FormControl>
+          <TextField label="Descrição" type="text" fullWidth />
         </Grid>
         <Grid xs={4} item>
-          <FormControl fullWidth>
+          {/* <FormControl fullWidth>
             <InputLabel id="select-label-status">Status</InputLabel>
             <Select
               labelId="select-label-status"
@@ -31,7 +46,7 @@ function SalesForm() {
               <MenuItem value={20}>Twenty</MenuItem>
               <MenuItem value={30}>Thirty</MenuItem>
             </Select>
-          </FormControl>
+          </FormControl> */}
         </Grid>
         <Grid xs={8} item>
           <FormControl fullWidth>
@@ -44,7 +59,11 @@ function SalesForm() {
             >
               <MenuItem value={10}>Ten</MenuItem>
               <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={0}><BasicModal /></MenuItem>
+              <MenuItem value={30}>Thirty</MenuItem>
+              <Option>
+                <span>Deseja cadastrar um novo cliente?</span>
+                <small onClick={handleOpenModal}>Cadastrar cliente+</small>
+              </Option>
             </Select>
           </FormControl>
         </Grid>
@@ -72,7 +91,6 @@ function SalesForm() {
         >
           Salvar
         </Button>
-        <BasicModal />
       </ButtonGroup>
     </FormGroup>
   );

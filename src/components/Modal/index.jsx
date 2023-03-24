@@ -1,56 +1,33 @@
 import {
   Box, FormControl, Grid, InputLabel, MenuItem, Modal, Select, TextField,
 } from '@mui/material';
-import { useState } from 'react';
+import PropTypes from 'prop-types';
 import Button from '../Button';
 import ButtonGroup from '../ButtonGroup';
+import { styledBox } from './styles';
 
 import FormGroup from '../FormGroup';
 
-const style = {
-  position: 'absolute',
-  top: '50%',
-  left: '50%',
-  transform: 'translate(-50%, -50%)',
-  width: 679,
-  height: 435,
-  bgcolor: 'background.paper',
-  padding: '32px 57px',
-  borderRadius: '10px',
-};
-
-export default function BasicModal() {
-  const [open, setOpen] = useState(false);
-  const handleOpen = () => setOpen(true);
-  const handleClose = () => setOpen(false);
-
+export default function BasicModal({ openModal, onCloseModal }) {
   return (
     <div>
-      <div style={{ display: 'flex', alignItems: 'center' }}>
-        <span>Deseja cadastrar outro cliente?</span>
-        <MenuItem onClick={handleOpen}>Cadastrar cliente+</MenuItem>
-      </div>
       <Modal
-        open={open}
-        onClose={handleClose}
+        open={openModal}
+        onClose={onCloseModal}
         aria-labelledby="modal-modal-title"
         aria-describedby="modal-modal-description"
       >
-        <Box sx={style}>
+        <Box sx={styledBox}>
           <FormGroup title="Adicionar novo cliente">
             <Grid container spacing={2}>
               <Grid xs={12} item>
                 <TextField label="Nome" name="name" type="text" fullWidth />
               </Grid>
               <Grid xs={9} item>
-                <FormControl fullWidth>
-                  <TextField label="Rua" type="text" fullWidth />
-                </FormControl>
+                <TextField label="Rua" type="text" fullWidth />
               </Grid>
               <Grid xs={3} item>
-                <FormControl fullWidth>
-                  <TextField label="Número" type="number" fullWidth />
-                </FormControl>
+                <TextField label="Número" type="number" fullWidth />
               </Grid>
               <Grid xs={3} item>
                 <FormControl fullWidth>
@@ -90,11 +67,28 @@ export default function BasicModal() {
             </Grid>
           </FormGroup>
           <ButtonGroup justify="flex-end">
-            <Button width={171} variant="outlined">Cancelar</Button>
-            <Button width={171} type="submit">Adicionar</Button>
+            <Button
+              width={171}
+              variant="outlined"
+              onClick={onCloseModal}
+            >
+              Cancelar
+            </Button>
+            <Button
+              width={171}
+              type="submit"
+              onClick={() => {}}
+            >
+              Adicionar
+            </Button>
           </ButtonGroup>
         </Box>
       </Modal>
     </div>
   );
 }
+
+BasicModal.propTypes = {
+  openModal: PropTypes.bool.isRequired,
+  onCloseModal: PropTypes.func.isRequired,
+};
