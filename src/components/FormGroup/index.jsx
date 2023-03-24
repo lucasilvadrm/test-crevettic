@@ -9,6 +9,7 @@ function FormGroup({ children, title }) {
         variant="h1"
         component="h1"
         marginBottom={5}
+        fontSize={20}
       >
         {title}
       </Typography>

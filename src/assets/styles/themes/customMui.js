@@ -14,6 +14,5 @@ export const theme = createTheme({
   typography: {
     fontSize: 12,
     h1: 20,
-    // fontFamily: 'Inter',
   },
 });

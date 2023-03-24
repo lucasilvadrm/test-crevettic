@@ -3,8 +3,9 @@ import {
 } from '@mui/material';
 import CustomDatePicker from '../CustomDatePicker';
 import FormGroup from '../FormGroup';
-import ButtonGroup from './components/ButtonGroup';
+import ButtonGroup from '../ButtonGroup';
 import Button from '../Button';
+import BasicModal from '../Modal';
 
 function SalesForm() {
   const smDown = useMediaQuery((theme) => theme.breakpoints.down('sm'));
@@ -34,7 +35,7 @@ function SalesForm() {
         </Grid>
         <Grid xs={8} item>
           <FormControl fullWidth>
-            <InputLabel id="select-label-status">Cliente</InputLabel>
+            <InputLabel id="select-label-cliente">Cliente</InputLabel>
             <Select
               labelId="select-label-cliente"
               id="select-cliente"
@@ -43,7 +44,7 @@ function SalesForm() {
             >
               <MenuItem value={10}>Ten</MenuItem>
               <MenuItem value={20}>Twenty</MenuItem>
-              <MenuItem value={30}>Thirty</MenuItem>
+              <MenuItem value={0}><BasicModal /></MenuItem>
             </Select>
           </FormControl>
         </Grid>
@@ -71,6 +72,7 @@ function SalesForm() {
         >
           Salvar
         </Button>
+        <BasicModal />
       </ButtonGroup>
     </FormGroup>
   );

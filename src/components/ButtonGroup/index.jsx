@@ -1,9 +1,9 @@
 import PropTypes from 'prop-types';
 import { StyledButtonGroup } from './styles';
 
-function ButtonGroup({ children, wrap }) {
+function ButtonGroup({ children, wrap, justify }) {
   return (
-    <StyledButtonGroup $wrap={wrap}>
+    <StyledButtonGroup $wrap={wrap} justify={justify}>
       {children}
     </StyledButtonGroup>
   );
@@ -12,10 +12,12 @@ function ButtonGroup({ children, wrap }) {
 ButtonGroup.propTypes = {
   children: PropTypes.node.isRequired,
   wrap: PropTypes.bool,
+  justify: PropTypes.string,
 };
 
 ButtonGroup.defaultProps = {
   wrap: false,
+  justify: null,
 };
 
 export default ButtonGroup;
