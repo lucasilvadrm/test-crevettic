@@ -1,4 +1,5 @@
-/* eslint-disable no-console */
+/* eslint-disable jsx-a11y/no-static-element-interactions */
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useContext } from 'react';
 import { Grid, MenuItem, TextField } from '@mui/material';
 import { useFormik } from 'formik';
@@ -14,6 +15,8 @@ import Select from '../../Select';
 import CustomDatePicker from '../../CustomDatePicker';
 import { initialValues, onSubmit } from './helpers';
 import { ClientContext } from '../../../contexts/ClientContext';
+import { Option } from './styles';
+import { ModalContext } from '../../../contexts/ModalContext';
 
 function FormSale() {
   const {
@@ -32,7 +35,8 @@ function FormSale() {
     onSubmit,
   });
 
-  const [clients] = useContext(ClientContext);
+  const { clients } = useContext(ClientContext);
+  const { handleOpenModal } = useContext(ModalContext);
 
   return (
     <form onSubmit={handleSubmit} autoComplete="off">
@@ -109,8 +113,10 @@ function FormSale() {
                 {client.name}
               </MenuItem>
             ))}
-            <MenuItem value="concluded">Concluído</MenuItem>
-            <MenuItem value="pending">Pendente</MenuItem>
+            <Option>
+              <span>Deseja cadastrar outro fornecedor?</span>
+              <small onClick={handleOpenModal}>Cadastrar Fornecedor+</small>
+            </Option>
           </Select>
         </Grid>
         <Grid xs={4} item>
@@ -125,6 +131,7 @@ function FormSale() {
               slotProps={errors.dateOfSale && {
                 textField: {
                   helperText: errors.dateOfSale,
+                  color: 'error',
                 },
               }}
             />

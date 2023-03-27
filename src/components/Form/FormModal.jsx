@@ -1,15 +1,20 @@
+import { useFormik } from 'formik';
+import React, { useContext } from 'react';
+import PropTypes from 'prop-types';
+
 import {
   Grid, MenuItem, TextField,
 } from '@mui/material';
-import { useFormik } from 'formik';
-import React, { useContext } from 'react';
-import { ClientContext } from '../../contexts/ClientContext';
-import { useStateAndCities } from '../../hooks/useStateAndCities';
-import { clientSchema } from '../../schemas';
-import formatPhone from '../../utils/formatPhone';
 import Button from '../Button';
 import ButtonGroup from '../ButtonGroup';
 import Select from '../Select';
+
+import { ClientContext } from '../../contexts/ClientContext';
+import { useStateAndCities } from '../../hooks/useStateAndCities';
+import { clientSchema } from '../../schemas';
+
+import formatPhone from '../../utils/formatPhone';
+import { delay } from '../../utils/delay';
 
 const initialValues = {
   name: '',
@@ -20,7 +25,6 @@ const initialValues = {
   phone: '',
 };
 
-// eslint-disable-next-line react/prop-types
 function FormModal({ onCloseModal }) {
   const { addNewClient } = useContext(ClientContext);
 
@@ -35,8 +39,11 @@ function FormModal({ onCloseModal }) {
   } = useFormik({
     initialValues,
     validationSchema: clientSchema,
-    onSubmit: (fields) => {
+    onSubmit: async (fields, { resetForm }) => {
       addNewClient({ id: Math.random(), ...fields });
+      resetForm();
+      await delay(2000);
+      onCloseModal();
     },
   });
 
@@ -98,6 +105,7 @@ function FormModal({ onCloseModal }) {
             onChange={handleChange}
             onBlur={handleBlur}
             disabled={isLoading}
+            isLoading={isLoading}
           >
             {states?.map((state) => (
               <MenuItem
@@ -120,7 +128,7 @@ function FormModal({ onCloseModal }) {
             onChange={handleChange}
             onBlur={handleBlur}
             disabled={!values.state}
-            displayEmpty
+            isLoading={!values.state && isLoading}
           >
             {cities.map((city) => (
               <MenuItem
@@ -169,5 +177,9 @@ function FormModal({ onCloseModal }) {
     </form>
   );
 }
+
+FormModal.propTypes = {
+  onCloseModal: PropTypes.func.isRequired,
+};
 
 export default FormModal;
