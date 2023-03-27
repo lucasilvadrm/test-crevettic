@@ -41,8 +41,8 @@ function FormModal({ onCloseModal }) {
     validationSchema: clientSchema,
     onSubmit: async (fields, { resetForm }) => {
       addNewClient({ id: Math.random(), ...fields });
-      resetForm();
       await delay(2000);
+      resetForm();
       onCloseModal();
     },
   });
@@ -130,7 +130,7 @@ function FormModal({ onCloseModal }) {
             disabled={!values.state}
             isLoading={!values.state && isLoading}
           >
-            {cities.map((city) => (
+            {cities?.map((city) => (
               <MenuItem
                 key={city.id}
                 value={city.id}
@@ -170,6 +170,7 @@ function FormModal({ onCloseModal }) {
           disabled={isSubmitting}
           width={171}
           type="submit"
+          isSubmitting={isSubmitting}
         >
           Adicionar
         </Button>
