@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { fetchCities, fetchStates } from '../services/helpers/ibge';
+import { delay } from '../utils/delay';
 
 export const useStateAndCities = ({ values }) => {
   const [states, setStates] = useState([]);
@@ -11,6 +12,7 @@ export const useStateAndCities = ({ values }) => {
       try {
         setIsLoading(true);
         const response = await fetchStates();
+        await delay(2000);
         setStates(response);
         setIsLoading(false);
       } catch {}
