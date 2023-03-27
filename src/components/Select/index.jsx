@@ -11,8 +11,8 @@ function Select({
   ...rest
 }) {
   return (
-    <FormControl fullWidth>
-      <InputLabel color={messageError ? 'error' : 'primary'}>
+    <FormControl fullWidth error={!!messageError}>
+      <InputLabel>
         {label}
       </InputLabel>
       <SelectMui
