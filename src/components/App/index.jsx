@@ -4,15 +4,18 @@ import themeSC from '../../assets/styles/themes/default';
 import { theme } from '../../assets/styles/themes/customMui';
 import GlobalStyles from '../../assets/styles/global';
 import Layout from '../../layout';
+import { ClientProvider } from '../../contexts/ClientContext';
 
 function App() {
   return (
-    <ThemeProviderSC theme={themeSC}>
-      <GlobalStyles />
-      <ThemeProvider theme={theme}>
-        <Layout />
-      </ThemeProvider>
-    </ThemeProviderSC>
+    <ClientProvider>
+      <ThemeProviderSC theme={themeSC}>
+        <GlobalStyles />
+        <ThemeProvider theme={theme}>
+          <Layout />
+        </ThemeProvider>
+      </ThemeProviderSC>
+    </ClientProvider>
   );
 }
 
