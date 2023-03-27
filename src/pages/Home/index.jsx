@@ -1,27 +1,18 @@
-import { useState } from 'react';
+import { useContext } from 'react';
 import { StyledPaper } from './styles';
 import FormContainer from '../../components/Form/FormContainer';
 import BasicModal from '../../components/Modal';
 import FormSale from '../../components/Form/FormSale';
+import { ModalContext } from '../../contexts/ModalContext';
 
 function Home() {
-  const [openModal, setOpenModal] = useState(false);
+  const { openModal, handleCloseModal } = useContext(ModalContext);
 
-  // const handleOpenModal = () => {
-  //   setOpenModal(true);
-  // };
-
-  const handleCloseModal = () => {
-    setOpenModal(false);
-  };
   return (
     <StyledPaper
       elevation={3}
     >
       <FormContainer title="Dados da Venda">
-        {/* <button type="button" onClick={handleOpenModal}>
-          CHAMA MODAL
-        </button> */}
         <BasicModal
           openModal={openModal}
           onCloseModal={handleCloseModal}
