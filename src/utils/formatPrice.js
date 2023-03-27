@@ -1,13 +1,10 @@
-export function formatPrice(value = '') {
-  const valueString = value.toString().replace('.', ',');
+export function formatPrice(value) {
+  let v = value.replace(/\D/g, '');
 
-  const [integer, decimal] = valueString.split(',');
+  v = `${(v / 100).toFixed(2)}`;
+  v = v.replace('.', ',');
+  v = v.replace(/(\d)(\d{3})(\d{3}),/g, '$1.$2.$3,');
+  v = v.replace(/(\d)(\d{3}),/g, '$1.$2,');
 
-  const formatted = integer.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-
-  if (!decimal) return `R$ ${formatted},00`;
-
-  if (decimal.length === 1) return `R$ ${formatted}, ${decimal[0]}0`;
-
-  return `R$ ${formatted}, ${decimal[0]}${decimal[1]}`;
+  return v;
 }
