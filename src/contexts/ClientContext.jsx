@@ -9,7 +9,11 @@ export const ClientContext = createContext();
 export function ClientProvider({ children }) {
   const [clients, setClients] = useState(clientsData);
 
-  const value = useMemo(() => [clients, setClients], [clients]);
+  const addNewClient = (newClient) => {
+    setClients((prev) => [...prev, newClient]);
+  };
+
+  const value = useMemo(() => ({ clients, addNewClient }), [clients]);
 
   return (
     <ClientContext.Provider value={value}>
