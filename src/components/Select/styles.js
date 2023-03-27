@@ -9,3 +9,12 @@ export const Error = styled.small`
   margin: 3px 0 14px 14px;
   color: #d32f2f;
 `;
+
+export const Loading = styled.div`
+  position: absolute;
+  right: 0;
+  top: 19px;
+  padding-right: 10px;
+  margin-right: 5px;
+  background-color: white;
+`;
