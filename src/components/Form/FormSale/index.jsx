@@ -1,7 +1,9 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { useContext } from 'react';
-import { Grid, MenuItem, TextField } from '@mui/material';
+import {
+  Grid, MenuItem, TextField,
+} from '@mui/material';
 import { useFormik } from 'formik';
 import dayjs from 'dayjs';
 
@@ -13,12 +15,18 @@ import ButtonGroup from '../../ButtonGroup';
 import Select from '../../Select';
 
 import CustomDatePicker from '../../CustomDatePicker';
-import { initialValues, onSubmit } from './helpers';
+import { initialValues } from './helpers';
 import { ClientContext } from '../../../contexts/ClientContext';
 import { Option } from './styles';
 import { ModalContext } from '../../../contexts/ModalContext';
+import { delay } from '../../../utils/delay';
+import { onlynumber } from '../../../utils/onlyNumber';
+import { formatPrice } from '../../../utils/formatPrice';
 
 function FormSale() {
+  const { clients } = useContext(ClientContext);
+  const { handleOpenModal } = useContext(ModalContext);
+
   const {
     values,
     errors,
@@ -31,12 +39,19 @@ function FormSale() {
   } = useFormik({
     initialValues,
     validationSchema: saleSchema,
-    validateOnChange: false,
-    onSubmit,
+    validateOnChange: true,
+    onSubmit: async (fields, { resetForm }) => {
+      console.log('Submitted', fields);
+      console.log({
+        ...fields,
+        price: Number(fields.price),
+        quantity: Number(fields.quantity),
+        dateOfSale: dayjs(fields.dateOfSale).format('DD/MM/YYYY'),
+      });
+      await delay(1000);
+      resetForm();
+    },
   });
-
-  const { clients } = useContext(ClientContext);
-  const { handleOpenModal } = useContext(ModalContext);
 
   return (
     <form onSubmit={handleSubmit} autoComplete="off">
@@ -70,31 +85,7 @@ function FormSale() {
             <MenuItem value="pending">Pendente</MenuItem>
           </Select>
         </Grid>
-        <Grid
-          xs={8}
-          item
-        >
-          {/* <Autocomplete
-            options={clients}
-            getOptionLabel={(option) => option.name}
-            onChange={(event, value) => {
-              setFieldValue('client', value?.name);
-            }}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                fullWidth
-                label="Cliente"
-                id="client"
-                name="client"
-                error={Boolean(
-                  touched.client && errors.client,
-                )}
-                helperText={touched.client && errors.client}
-                onBlur={handleBlur}
-              />
-            )}
-          /> */}
+        <Grid xs={8} item>
           <Select
             value={values.client}
             label="Cliente"
@@ -127,27 +118,29 @@ function FormSale() {
               onChange={(value) => {
                 setFieldValue('dateOfSale', value);
               }}
-              maxDate={dayjs(new Date())}
-              slotProps={errors.dateOfSale && {
-                textField: {
-                  helperText: errors.dateOfSale,
-                  color: 'error',
-                },
-              }}
+              disableFuture
+              // slotProps={{
+              //   textField: {
+              //     helperText: errors.dateOfSale,
+              //   },
+              // }}
             />
           </CustomDatePicker>
         </Grid>
         <Grid xs={4} item>
           <TextField
             label="Quantidade (em kg)"
-            type="number"
+            type="text"
             id="quantity"
             name="quantity"
-            value={values.quantity}
+            value={onlynumber(values.quantity)}
             helperText={touched.quantity && errors.quantity}
             error={touched.quantity && Boolean(errors.quantity)}
             onChange={handleChange}
             onBlur={handleBlur}
+            inputProps={{
+              min: 0,
+            }}
             fullWidth
           />
         </Grid>
@@ -157,7 +150,7 @@ function FormSale() {
             type="text"
             id="price"
             name="price"
-            value={values.price}
+            value={formatPrice(values.price)}
             helperText={touched.price && errors.price}
             error={touched.price && Boolean(errors.price)}
             onChange={handleChange}
@@ -176,6 +169,7 @@ function FormSale() {
           disabled={isSubmitting}
           color="primary"
           type="submit"
+          isSubmitting={isSubmitting}
         >
           Salvar
         </Button>

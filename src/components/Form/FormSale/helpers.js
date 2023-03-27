@@ -18,5 +18,4 @@ export const onSubmit = async (values, { resetForm }) => {
   });
   await delay(1000);
   resetForm();
-  console.log({ values });
 };
