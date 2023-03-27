@@ -1,5 +1,7 @@
 import { Button as ButtonMui } from '@mui/material';
 import PropTypes from 'prop-types';
+import Spinner from '../Spinner';
+import { Loading } from './styles';
 
 export default function Button({
   children,
@@ -8,6 +10,7 @@ export default function Button({
   type,
   onClick,
   width,
+  isSubmitting,
   ...rest
 }) {
   const isManualWidth = width ? {
@@ -23,6 +26,7 @@ export default function Button({
       type={type}
       onClick={onClick}
       sx={{
+        position: 'relative',
         borderRadius: '10px',
         fontSize: 13,
         height: '39px',
@@ -30,8 +34,8 @@ export default function Button({
       }}
       {...rest}
     >
+      {isSubmitting && <Loading><Spinner size={13} /></Loading>}
       {children}
-
     </ButtonMui>
   );
 }
@@ -43,6 +47,7 @@ Button.propTypes = {
   type: PropTypes.string,
   onClick: PropTypes.func,
   width: PropTypes.number,
+  isSubmitting: PropTypes.bool,
 };
 
 Button.defaultProps = {
@@ -51,4 +56,5 @@ Button.defaultProps = {
   color: 'primary',
   width: undefined,
   onClick: undefined,
+  isSubmitting: false,
 };
