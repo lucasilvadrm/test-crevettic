@@ -20,8 +20,8 @@ import { ClientContext } from '../../../contexts/ClientContext';
 import { Option } from './styles';
 import { ModalContext } from '../../../contexts/ModalContext';
 import { delay } from '../../../utils/delay';
-import { onlynumber } from '../../../utils/onlyNumber';
 import { formatPrice } from '../../../utils/formatPrice';
+import toast from '../../../utils/toast';
 
 function FormSale() {
   const { clients } = useContext(ClientContext);
@@ -36,19 +36,24 @@ function FormSale() {
     handleBlur,
     handleSubmit,
     setFieldValue,
+    resetForm,
   } = useFormik({
     initialValues,
     validationSchema: saleSchema,
     validateOnChange: true,
-    onSubmit: async (fields, { resetForm }) => {
-      console.log('Submitted', fields);
+    onSubmit: async (fields) => {
+      // eslint-disable-next-line no-console
       console.log({
         ...fields,
-        price: Number(fields.price),
         quantity: Number(fields.quantity),
         dateOfSale: dayjs(fields.dateOfSale).format('DD/MM/YYYY'),
       });
       await delay(1000);
+      toast({
+        type: 'success',
+        text: 'Editado com sucesso!',
+        duration: 3000,
+      });
       resetForm();
     },
   });
@@ -119,11 +124,6 @@ function FormSale() {
                 setFieldValue('dateOfSale', value);
               }}
               disableFuture
-              // slotProps={{
-              //   textField: {
-              //     helperText: errors.dateOfSale,
-              //   },
-              // }}
             />
           </CustomDatePicker>
         </Grid>
@@ -133,7 +133,7 @@ function FormSale() {
             type="text"
             id="quantity"
             name="quantity"
-            value={onlynumber(values.quantity)}
+            value={values.quantity}
             helperText={touched.quantity && errors.quantity}
             error={touched.quantity && Boolean(errors.quantity)}
             onChange={handleChange}
@@ -150,10 +150,12 @@ function FormSale() {
             type="text"
             id="price"
             name="price"
-            value={formatPrice(values.price)}
+            value={values.price ? `R$ ${values.price}` : ''}
             helperText={touched.price && errors.price}
             error={touched.price && Boolean(errors.price)}
-            onChange={handleChange}
+            onChange={(event) => {
+              setFieldValue('price', formatPrice(event.target.value));
+            }}
             onBlur={handleBlur}
             fullWidth
           />
@@ -162,6 +164,7 @@ function FormSale() {
       <ButtonGroup>
         <Button
           color="secondary"
+          onClick={resetForm}
         >
           Voltar
         </Button>

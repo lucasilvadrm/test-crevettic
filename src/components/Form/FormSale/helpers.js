@@ -7,7 +7,7 @@ export const initialValues = {
   price: '',
   status: '',
   client: '',
-  dateOfSale: '',
+  dateOfSale: dayjs(new Date()),
 };
 
 export const onSubmit = async (values, { resetForm }) => {
