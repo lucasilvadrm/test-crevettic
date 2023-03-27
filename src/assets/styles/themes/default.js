@@ -1,5 +1,9 @@
 export default {
   colors: {
+    primary: {
+      main: '#0076C6',
+      contrastText: '#ffffff',
+    },
     header: '#E98F0A',
     border: '#EAEAEE',
     background: {
