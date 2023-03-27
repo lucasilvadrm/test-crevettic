@@ -36,6 +36,7 @@ function FormModal({ onCloseModal }) {
     handleChange,
     handleBlur,
     handleSubmit,
+    setFieldValue,
   } = useFormik({
     initialValues,
     validationSchema: clientSchema,
@@ -146,10 +147,12 @@ function FormModal({ onCloseModal }) {
             type="text"
             id="phone"
             name="phone"
-            value={formatPhone(values.phone)}
+            value={values.phone}
             helperText={touched.phone && errors.phone}
             error={touched.phone && Boolean(errors.phone)}
-            onChange={handleChange}
+            onChange={(event) => {
+              setFieldValue('phone', formatPhone(event.target.value));
+            }}
             onBlur={handleBlur}
             inputProps={{
               maxLength: 15,
