@@ -8,6 +8,7 @@ export default function Button({
   type,
   onClick,
   width,
+  ...rest
 }) {
   const isManualWidth = width ? {
     maxWidth: width,
@@ -27,6 +28,7 @@ export default function Button({
         height: '39px',
         ...isManualWidth,
       }}
+      {...rest}
     >
       {children}
 
@@ -39,13 +41,14 @@ Button.propTypes = {
   variant: PropTypes.string,
   color: PropTypes.string,
   type: PropTypes.string,
-  onClick: PropTypes.func.isRequired,
+  onClick: PropTypes.func,
   width: PropTypes.number,
 };
 
 Button.defaultProps = {
   type: 'button',
   variant: 'contained',
-  width: undefined,
   color: 'primary',
+  width: undefined,
+  onClick: undefined,
 };
