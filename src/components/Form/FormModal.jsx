@@ -68,6 +68,9 @@ function FormModal({ onCloseModal }) {
             error={touched.number && Boolean(errors.number)}
             onChange={handleChange}
             onBlur={handleBlur}
+            inputProps={{
+              min: 0,
+            }}
             fullWidth
           />
         </Grid>
