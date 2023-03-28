@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
-import { fetchCities, fetchStates } from '../services/helpers/ibge';
+import PlacesService from '../services/PlacesService';
 import { delay } from '../utils/delay';
+import toast from '../utils/toast';
 
 export const useStateAndCities = ({ values }) => {
   const [states, setStates] = useState([]);
@@ -11,11 +12,16 @@ export const useStateAndCities = ({ values }) => {
     const loadingStates = async () => {
       try {
         setIsLoading(true);
-        const response = await fetchStates();
+        const response = await PlacesService.listStates();
         await delay(2000);
         setStates(response);
         setIsLoading(false);
-      } catch {}
+      } catch {
+        toast({
+          type: 'danger',
+          text: 'Erro ao buscar estados!',
+        });
+      }
     };
 
     loadingStates();
@@ -26,10 +32,15 @@ export const useStateAndCities = ({ values }) => {
     const loadingCities = async () => {
       try {
         setIsLoading(true);
-        const response = await fetchCities(values.state);
+        const response = await PlacesService.listCitiesByState(values.state);
         setCities(response);
         setIsLoading(false);
-      } catch {}
+      } catch {
+        toast({
+          type: 'danger',
+          text: 'Erro ao buscar cidades!',
+        });
+      }
     };
     loadingCities();
   }, [values.state]);
