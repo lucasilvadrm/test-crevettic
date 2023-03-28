@@ -1,33 +1,24 @@
 /* eslint-disable jsx-a11y/no-static-element-interactions */
 /* eslint-disable jsx-a11y/click-events-have-key-events */
-import React, { useContext } from 'react';
+import React from 'react';
 import {
   Grid, MenuItem, TextField,
 } from '@mui/material';
-import { useFormik } from 'formik';
-import dayjs from 'dayjs';
 
 import { DatePicker } from '@mui/x-date-pickers';
 
-import { saleSchema } from '../../../schemas';
 import Button from '../../Button';
 import ButtonGroup from '../../ButtonGroup';
 import Select from '../../Select';
 
 import CustomDatePicker from '../../CustomDatePicker';
-import { initialValues } from './helpers';
-import { ClientContext } from '../../../contexts/ClientContext';
 import { Option } from './styles';
-import { ModalContext } from '../../../contexts/ModalContext';
-import { delay } from '../../../utils/delay';
 import { formatPrice } from '../../../utils/formatPrice';
-import toast from '../../../utils/toast';
+import { useFormSale } from '../../../hooks/useFormSale';
 
 function FormSale() {
-  const { clients } = useContext(ClientContext);
-  const { handleOpenModal } = useContext(ModalContext);
-
   const {
+    clients,
     values,
     errors,
     touched,
@@ -37,31 +28,13 @@ function FormSale() {
     handleSubmit,
     setFieldValue,
     resetForm,
-  } = useFormik({
-    initialValues,
-    validationSchema: saleSchema,
-    validateOnChange: true,
-    onSubmit: async (fields) => {
-      // eslint-disable-next-line no-console
-      console.log({
-        ...fields,
-        quantity: Number(fields.quantity),
-        dateOfSale: dayjs(fields.dateOfSale).format('DD/MM/YYYY'),
-      });
-      await delay(1000);
-      toast({
-        type: 'success',
-        text: 'Editado com sucesso!',
-        duration: 3000,
-      });
-      resetForm();
-    },
-  });
+    handleOpenModal,
+  } = useFormSale();
 
   return (
     <form onSubmit={handleSubmit} autoComplete="off">
       <Grid container spacing={2}>
-        <Grid xs={12} item>
+        <Grid xs={6} md={12} item>
           <TextField
             label="Descrição"
             type="text"
@@ -75,7 +48,7 @@ function FormSale() {
             fullWidth
           />
         </Grid>
-        <Grid xs={4} item>
+        <Grid xs={6} md={4} item>
           <Select
             value={values.status}
             label="Status"
@@ -90,7 +63,7 @@ function FormSale() {
             <MenuItem value="pending">Pendente</MenuItem>
           </Select>
         </Grid>
-        <Grid xs={8} item>
+        <Grid xs={6} md={8} item>
           <Select
             value={values.client}
             label="Cliente"
@@ -115,7 +88,7 @@ function FormSale() {
             </Option>
           </Select>
         </Grid>
-        <Grid xs={4} item>
+        <Grid xs={6} md={4} item>
           <CustomDatePicker>
             <DatePicker
               label="Data da venda"
@@ -127,7 +100,7 @@ function FormSale() {
             />
           </CustomDatePicker>
         </Grid>
-        <Grid xs={4} item>
+        <Grid xs={6} md={4} item>
           <TextField
             label="Quantidade (em kg)"
             type="text"
@@ -144,7 +117,7 @@ function FormSale() {
             fullWidth
           />
         </Grid>
-        <Grid xs={4} item>
+        <Grid xs={6} md={4} item>
           <TextField
             label="Preço de venda"
             type="text"

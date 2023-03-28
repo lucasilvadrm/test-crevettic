@@ -1,5 +1,4 @@
-import { useFormik } from 'formik';
-import React, { useContext } from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 
 import {
@@ -9,26 +8,14 @@ import Button from '../Button';
 import ButtonGroup from '../ButtonGroup';
 import Select from '../Select';
 
-import { ClientContext } from '../../contexts/ClientContext';
-import { useStateAndCities } from '../../hooks/useStateAndCities';
-import { clientSchema } from '../../schemas';
-
 import formatPhone from '../../utils/formatPhone';
-import { delay } from '../../utils/delay';
-
-const initialValues = {
-  name: '',
-  street: '',
-  number: '',
-  state: '',
-  city: '',
-  phone: '',
-};
+import { useFormModal } from '../../hooks/useFormModal';
 
 function FormModal({ onCloseModal }) {
-  const { addNewClient } = useContext(ClientContext);
-
   const {
+    states,
+    cities,
+    isLoading,
     values,
     errors,
     touched,
@@ -37,18 +24,7 @@ function FormModal({ onCloseModal }) {
     handleBlur,
     handleSubmit,
     setFieldValue,
-  } = useFormik({
-    initialValues,
-    validationSchema: clientSchema,
-    onSubmit: async (fields, { resetForm }) => {
-      addNewClient({ id: Math.random(), ...fields });
-      await delay(2000);
-      resetForm();
-      onCloseModal();
-    },
-  });
-
-  const { states, cities, isLoading } = useStateAndCities({ values });
+  } = useFormModal({ onCloseModal });
 
   return (
     <form onSubmit={handleSubmit} autoComplete="off">
