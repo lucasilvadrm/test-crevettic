@@ -10,8 +10,6 @@ function ToastMessage({ message, onRemoveMessage }) {
     onRemoveMessage(message.id);
   };
 
-  console.log('ToastMessage');
-
   useEffect(() => {
     const timeoutId = setTimeout(() => {
       onRemoveMessage(message.id);
